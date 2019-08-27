@@ -4,6 +4,7 @@ from time import clock
 import paho.mqtt.client as mqtt
 from dao import DataAccessLayer as acc
 
+
 # =========================================================================================================
 # TRANSITIONS
 
@@ -138,12 +139,13 @@ class InitState(State):
     def __init__(self, FSM):
         super(InitState, self).__init__(FSM)
 
+
     def Enter(self):
         print("Entering InitState...")
         super(InitState, self).Enter()
 
     def Execute(self):
-        # TODO Connect to IpFour Communication service via MQTT
+
         try:
             self.mqqtc.connect("cloud.ipfour.net", 1883)
             self.mqqtc.loop_start()
@@ -152,6 +154,7 @@ class InitState(State):
         except:
             print('Error Occured when connecting to ipfour server')
             ConnectedSubject.getInstance().notify()
+
 
 
 
@@ -303,6 +306,7 @@ class IpFourClient(Char):
 
 
             self.FSM.SetState("InitState")
+
     def Execute(self):
         self.FSM.Execute()
 
